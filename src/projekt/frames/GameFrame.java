@@ -1,9 +1,10 @@
-package tmp;
+package projekt.frames;
+
+import projekt.game.GamePanel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.util.ArrayList;
+import java.awt.event.KeyListener;
 
 public class GameFrame extends JFrame{
 
@@ -11,20 +12,18 @@ public class GameFrame extends JFrame{
     private Timer timer;
 
     public GameFrame() {
-        setLayout(null);
         this.init();
 
+
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(600, 800);
-        this.setLocationRelativeTo(null);
-        this.setResizable(false);
+//        this.setResizable(false);
         this.setVisible(true);
+        pack();
     }
 
     private void init() {
         gamePanel = new GamePanel();
-        this.addKeyListener(gamePanel);
-        this.setContentPane(gamePanel);
+        this.add(gamePanel);
+        for(KeyListener kl: gamePanel.getKeyListeners()) this.addKeyListener(kl);
     }
-
 }
