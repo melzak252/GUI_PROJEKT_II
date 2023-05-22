@@ -8,6 +8,7 @@ public class GameBackground extends JPanel {
     int current1Y;
     int gameWidth = 400;
     int gameHeight = 700;
+    boolean stop = false;
 
     public GameBackground(int gameWidth, int gameHeight) {
         this.gameHeight = gameHeight;
@@ -25,8 +26,14 @@ public class GameBackground extends JPanel {
         Graphics2D g2d = (Graphics2D) g.create();
         g2d.drawImage(background, 0, current1Y, gameWidth, gameHeight, this);
         g2d.drawImage(background, 0, current1Y - gameHeight, gameWidth, gameHeight, this);
-        current1Y += 2;
-        current1Y %= gameHeight;
+        if(!stop) {
+            current1Y += 2;
+            current1Y %= gameHeight;
+        }
+    }
+
+    public void stop(){
+        stop = true;
     }
 
 }

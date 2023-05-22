@@ -8,7 +8,8 @@ import java.awt.*;
 public class Movable {
     public int x;
     public int y;
-    public int speed;
+    public int speedY;
+    public int speedX;
     public int width;
     public int height;
     private int maxMapWidth;
@@ -17,10 +18,11 @@ public class Movable {
     private int minMapHeight;
     private boolean maxDimensionsSet = false;
 
-    public Movable(int x, int y, int width, int height, int speed) {
+    public Movable(int x, int y, int width, int height, int speedX, int speedY) {
         this.x = x;
         this.y = y;
-        this.speed = speed;
+        this.speedX = speedX;
+        this.speedY = speedY;
         this.width = width;
         this.height = height;
     }
@@ -46,8 +48,8 @@ public class Movable {
     }
 
     public void move(MoveVector mv) {
-        x += mv.x * speed;
-        y += mv.y * speed;
+        x += mv.x * speedX;
+        y += mv.y * speedY;
 
         if (this.maxDimensionsSet) {
             x = Math.min(maxMapWidth - width, x);
@@ -62,11 +64,15 @@ public class Movable {
         int dx = x - this.x;
         int dy = y - this.y;
         double l = Math.sqrt(dx * dx + dy * dy);
-        double a = l / speed;
-        this.x += speed * dx / l;
-        this.y += speed * dy / l;
-        if (a <= 1.0) {
+        double aX = 1. * dx / speedX;
+        double aY = 1. * dy / speedY;
+        this.x += speedX * dx / l;
+        this.y += speedY * dy / l;
+        if (aX <= 1.0) {
             this.x = x;
+        }
+
+        if (aY <= 1.0){
             this.y = y;
         }
     }

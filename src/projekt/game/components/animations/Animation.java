@@ -13,9 +13,9 @@ public abstract class Animation extends JComponent {
     protected Movable movable;
     protected boolean isFinished = false;
 
-    protected Animation(int x, int y, int width, int height, int speed) {
+    protected Animation(int x, int y, int width, int height, int speedX, int speedY) {
         loadSprites();
-        movable = new Movable(x - width / 2, y - height / 2, width, height, speed);
+        movable = new Movable(x - width / 2, y - height / 2, width, height, speedX, speedY);
     }
 
     public void move(MoveVector mv){

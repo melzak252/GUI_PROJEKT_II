@@ -11,7 +11,7 @@ import java.io.IOException;
 public class Shield extends Animation {
 
     public Shield(Movable m) {
-        super((int) m.getCenterX(), (int) m.getCenterY(), m.width, m.height, m.speed);
+        super((int) m.getCenterX(), (int) m.getCenterY(), m.width, m.height, m.speedX, m.speedY);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class Shield extends Animation {
             Clip clip = AudioSystem.getClip();
             clip.open(sound);
             FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-            gainControl.setValue(20f * (float) Math.log10(0.1));
+            gainControl.setValue(-30f);
             clip.start();
 
         } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {

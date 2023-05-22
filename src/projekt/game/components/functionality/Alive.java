@@ -1,13 +1,11 @@
 package projekt.game.components.functionality;
 
-import java.awt.*;
-
-public class Targetable {
+public class Alive {
     public double health;
-    public double maxHealth;
-    public Targetable(double maxHealth) {
-        this.maxHealth = maxHealth;
-        this.health = maxHealth;
+    public double startHealth;
+    public Alive(double startHealth) {
+        this.startHealth = startHealth;
+        this.health = startHealth;
     }
 
     public double getHealth() {

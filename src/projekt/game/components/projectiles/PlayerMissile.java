@@ -10,7 +10,7 @@ public class PlayerMissile extends Projectile {
     public static int width = 8;
     public static int height = 16;
     public PlayerMissile(int x, int y) {
-        super(x, y, 8, 16, 5, "src/projekt/resources/projectiles/player-missile.png");
+        super(x, y, 8, 16, 5, 20, 1,"src/projekt/resources/projectiles/player-missile.png");
     }
     @Override
     public void move() {
@@ -25,6 +25,6 @@ public class PlayerMissile extends Projectile {
 
     @Override
     public double getDamage() {
-        return 1.0;
+        return 2;
     }
 }

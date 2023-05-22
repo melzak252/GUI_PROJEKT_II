@@ -7,7 +7,7 @@ public class EnemyMissile extends Projectile{
     public static int width = 8;
     public static int height = 16;
     public EnemyMissile(int x, int y) {
-        super(x, y, 8, 16, 5, "src/projekt/resources/projectiles/enemy-missile.png");
+        super(x, y, 8, 16, 5, 10, 0, "src/projekt/resources/projectiles/enemy-missile.png");
     }
     @Override
     public void move() {

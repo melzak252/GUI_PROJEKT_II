@@ -15,12 +15,22 @@ public abstract class Weapon<T extends Projectile> {
         this.lastTimeFire = System.currentTimeMillis();
     }
 
+    public Weapon() {
+        this.lastTimeFire = System.currentTimeMillis();
+    }
+
     public abstract T fire(int x, int y) throws WeaponException;
 
     public void drawReload(Graphics g, int x, int y) {
         Graphics2D g2d = (Graphics2D) g.create();
-        g2d.setColor(isReloading()? Color.RED: Color.GREEN);
-        g2d.fillOval(x, y, 10, 10);
+        g2d.setColor(Color.BLACK);
+        g2d.drawLine(x, y, x + 32,  y);
+        g2d.setColor(Color.YELLOW);
+        g2d.drawLine(x, y, (int) (x + 32 * reloadRatio()),  y);
+    }
+
+    private double reloadRatio(){
+        return Math.min(((System.currentTimeMillis() - lastTimeFire) / 1000.) / reloadTime, 1.0);
     }
 
     public boolean isReloading(){

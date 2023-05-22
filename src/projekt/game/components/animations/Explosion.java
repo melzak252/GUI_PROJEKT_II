@@ -10,7 +10,7 @@ public class Explosion extends Animation {
     double angle;
 
     public Explosion(int x, int y) {
-        super(x, y, 64, 64, 0);
+        super(x, y, 64, 64, 0, 0);
         angle = (Math.random() * 2 - 1) * Math.PI;
     }
     @Override
@@ -49,7 +49,7 @@ public class Explosion extends Animation {
             Clip clip = AudioSystem.getClip();
             clip.open(sound);
             FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-            gainControl.setValue(20f * (float) Math.log10(0.1));
+            gainControl.setValue(-40f);
             clip.start();
 
         } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
