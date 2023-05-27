@@ -2,40 +2,52 @@ package projekt.game.levels;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 public class Level {
-    protected List<Wave> waves = new ArrayList<>();
+    public static HashMap<String, LevelConfig> levelConfigs = new HashMap<>();
+    static {
+        levelConfigs.put(LevelEasy.name, new LevelEasy());
+        levelConfigs.put(LevelHard.name, new LevelHard());
+        levelConfigs.put(TestLevel.name, new TestLevel());
+    }
+    private List<Wave> waves = new ArrayList<>();
+    public String name;
     public double newWaveTime;
-    public double waveSpeed;
     public double waveMoveDownTime;
     public double waveMoveSideTime;
-    public String name;
-    private int currentWave = 0;
+    public int currentWave = 0;
 
-    protected Level(String name, List<Wave> waves, double newWaveTime, double waveSpeed, double waveMoveDownTime, double waveMoveSideTime) {
-        this.name = name;
-        this.waves = waves;
-        this.newWaveTime = newWaveTime;
-        this.waveSpeed = waveSpeed;
-        this.waveMoveDownTime = waveMoveDownTime;
-        this.waveMoveSideTime = waveMoveSideTime;
+    private Level(){
+
     }
 
-    public Wave getNextWave() {
-        return waves.get(currentWave++);
+    private Level(LevelConfig levelConfig) {
+        for(Integer[][] g: levelConfig.grids){
+            waves.add(new Wave(g[0].length, g.length, g));
+        }
+        name = levelConfig.name;
+        newWaveTime = levelConfig.newWaveTime;
+        waveMoveSideTime = levelConfig.waveMoveSideTime;
+        waveMoveDownTime = levelConfig.waveMoveDownTime;
     }
 
-    public int getNumberOfWaves() {
-        return waves.size();
+    public static Level getLevel(String name){
+        if(!levelConfigs.containsKey(name)) return null;
+
+        return new Level(levelConfigs.get(name));
     }
 
     public int getCurrentWave() {
         return currentWave;
     }
 
-    @Override
-    public String toString() {
-        return "Lvl. " + name;
+    public int getNumberOfWaves() {
+        return waves.size();
+    }
+
+    public Wave getNextWave(){
+        return waves.get(currentWave++);
     }
 }

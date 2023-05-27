@@ -1,4 +1,4 @@
-package projekt.game;
+package projekt.game.ui;
 
 import projekt.game.components.GameInstance;
 import projekt.game.components.ships.players.PlayerType;
@@ -6,6 +6,7 @@ import projekt.game.levels.Level;
 import projekt.game.levels.LevelEasy;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 

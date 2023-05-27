@@ -14,9 +14,17 @@ public class GameOver extends JPanel {
         gameOver.setHorizontalAlignment(SwingConstants.CENTER);
         gameOver.setVerticalAlignment(SwingConstants.CENTER);
         add(gameOver);
-        gameScore = new GameLabel("Your final score: 52.0");
+        gameScore = new GameLabel("");
         add(gameScore);
-        gameTime = new GameLabel("You survived: 87 s");
+        gameTime = new GameLabel("");
         add(gameTime);
+    }
+
+    public void setPlayTime(double time) {
+        gameTime.setText("Enemies had to siege u over:" + (int)time + "s");
+    }
+
+    public void setScore(double score) {
+        gameScore.setText("You've collected: " + score + " points");
     }
 }

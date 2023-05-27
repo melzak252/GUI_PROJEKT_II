@@ -51,7 +51,7 @@ public abstract class Ship extends JComponent implements IDrawable {
         animations.forEach(a -> a.paintComponent(g));
         List<Animation> toDelete = animations.stream().filter(Animation::getIsFinished).toList();
         animations.removeAll(toDelete);
-        weapon.drawReload(g, movable.x, movable.y + movable.height + 5, movable.width);
+//        weapon.drawReload(g, movable.x, movable.y + movable.height + 5, movable.width);
     }
 
     public double getStartHealth() {

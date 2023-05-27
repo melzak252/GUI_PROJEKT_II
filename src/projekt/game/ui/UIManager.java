@@ -1,6 +1,7 @@
 package projekt.game.ui;
 
 import projekt.game.components.GameState;
+import projekt.util.Top10Logger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,6 +15,7 @@ public class UIManager extends JPanel{
     EmptyUI emptyUI;
     GameOver gameOver;
     GameState gameState;
+    WinView winView;
     ActionListener goLeftListener;
     ActionListener goRightListener;
     ActionListener shotListener;
@@ -35,11 +37,12 @@ public class UIManager extends JPanel{
         gamePanel = new GameUI();
         emptyUI = new EmptyUI();
         gameOver = new GameOver();
+        winView = new WinView();
         add(createdPanel, GameState.CREATED.name());
         add(initPanel, GameState.INIT.name());
         add(pausePanel, GameState.PAUSE.name());
         add(gamePanel, GameState.RUNNING.name());
-        add(emptyUI, GameState.WIN.name());
+        add(winView, GameState.WIN.name());
         add(gameOver, GameState.LOSE.name());
     }
 
@@ -51,6 +54,16 @@ public class UIManager extends JPanel{
 
     public void setInitParams(double time){
         initPanel.setTime(Math.round(3.0 - time));
+    }
+    public void setGameOverParams(double time, double score){
+        gameOver.setPlayTime(time);
+        gameOver.setScore(score);
+    }
+
+    public void setWinGame(double gameTime, double score, double health, String playerName) {
+        winView.setPlayTime(gameTime);
+        winView.setScore(score);
+        winView.setHealth(health);
     }
 
     public void addGoRightListener(ActionListener goRightListener){
@@ -74,6 +87,7 @@ public class UIManager extends JPanel{
         gamePanel.setGameTime(gameTime);
         gamePanel.setHealth(health);
     }
+
 
 
 }

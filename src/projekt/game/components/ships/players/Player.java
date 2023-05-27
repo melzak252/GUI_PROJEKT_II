@@ -39,6 +39,11 @@ public abstract class Player extends Ship implements IDrawable{
         super.draw(g);
     }
 
+    public void draw(Graphics g, double scale) {
+        Graphics2D g2d = (Graphics2D) g.create();
+        g2d.drawImage(playerImage, movable.x, movable.y, (int) (movable.width * scale), (int) (movable.height * scale), this);
+        super.draw(g);
+    }
     public void move(MoveVector mv) {
         movable.move(mv);
         animations.forEach(a -> a.move(mv));

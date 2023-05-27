@@ -11,6 +11,7 @@ import projekt.game.levels.Wave;
 import projekt.game.ui.GameBackground;
 import projekt.game.ui.UIManager;
 import projekt.util.MoveVector;
+import projekt.util.Top10Logger;
 import projekt.util.exceptions.ShipException;
 import projekt.game.components.projectiles.Projectile;
 import projekt.game.components.ships.enemies.Enemy;
@@ -25,8 +26,8 @@ import java.util.HashMap;
 import java.util.List;
 
 public class GameInstance extends JPanel implements KeyListener {
-    private final int gameHeight = 800;
-    private final int gameWidth = 500;
+    public final static int gameHeight = 800;
+    public final static int gameWidth = 500;
     private final int frames = 30;
     private String playerName;
     Level level;
@@ -58,8 +59,10 @@ public class GameInstance extends JPanel implements KeyListener {
     private long startInitTime;
     private long startGameTime;
     private boolean pressedMoveButton;
+    private double gameTime;
 
     public GameInstance(Level level, PlayerType playerType, String playerName, boolean isWSAD) {
+        Logger.info("Created game instance on level:  " + level.name + "! Player Name: " + playerName);
         this.playerName = playerName;
         setSize(new Dimension(gameWidth, gameHeight));
         setPreferredSize(new Dimension(gameWidth, gameHeight));
@@ -183,6 +186,8 @@ public class GameInstance extends JPanel implements KeyListener {
         switch(gameState){
             case INIT -> ui.setInitParams((System.currentTimeMillis() - startInitTime) / 1000.);
             case RUNNING -> ui.setGameParams(score, (System.currentTimeMillis() - startGameTime) / 1000., player.getHealth());
+            case LOSE -> ui.setGameOverParams(gameTime, score);
+            case WIN -> ui.setWinGame(gameTime, score, player.getHealth(), playerName);
         }
 
     }
@@ -205,9 +210,12 @@ public class GameInstance extends JPanel implements KeyListener {
 
     private void checkWinConditions() {
         if(enemies.stream().allMatch(Ship::isPepsi) && enemiesToSet.size() == 0){
-            if(level.getCurrentWave() >= level.getCurrentWave()){
+            if(level.getCurrentWave() >= level.getNumberOfWaves()){
                 gameState = GameState.WIN;
                 background.stop();
+                gameTime = (System.currentTimeMillis() - startGameTime) / 1000.;
+                Top10Logger.manageWinner(playerName, score, player.getHealth(), gameTime);
+                Logger.info("Player: " + playerName + " won with s: " + score + " and with h: " + player.getHealth());
                 return;
             }
             initNextWave();
@@ -216,12 +224,16 @@ public class GameInstance extends JPanel implements KeyListener {
         if(enemies.stream().anyMatch(e -> e.getBounds().y > gameHeight * 3 / 4)){
             gameState = GameState.LOSE;
             background.stop();
+            gameTime = (System.currentTimeMillis() - startGameTime) / 1000.;
+            Logger.info("Player: " + playerName + " lost! Enemies got too close!");
             return;
         }
 
         if(player.getHealth() <= 0){
             gameState = GameState.LOSE;
             background.stop();
+            gameTime = (System.currentTimeMillis() - startGameTime) / 1000.;
+            Logger.info("Player: " + playerName + " lost! Enemies killed our hero!");
         }
     }
 

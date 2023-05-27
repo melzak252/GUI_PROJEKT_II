@@ -30,9 +30,9 @@ public class GameUI extends JPanel {
         topPanel.setBackground(new Color(255, 255, 255, 0));
 
         topPanel.add(score);
-        topPanel.add(Box.createHorizontalStrut(100));
+        topPanel.add(Box.createHorizontalStrut(50));
         topPanel.add(gameTime);
-        topPanel.add(Box.createHorizontalStrut(100));
+        topPanel.add(Box.createHorizontalStrut(50));
         topPanel.add(health);
 
 
