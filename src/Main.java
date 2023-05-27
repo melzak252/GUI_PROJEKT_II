@@ -1,12 +1,9 @@
-import projekt.frames.GameFrame;
+import projekt.frames.*;
 
 import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
-
-
-        SwingUtilities.invokeLater(GameFrame::new);
-
+        SwingUtilities.invokeLater(() -> new GameFrame(2));
     }
 }

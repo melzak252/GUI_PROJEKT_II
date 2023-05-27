@@ -42,21 +42,16 @@ public abstract class Ship extends JComponent implements IDrawable {
 
     public abstract void getHit(Projectile p);
 
-    public boolean isDestroyed() {
-        return alive.health <= 0;
-    }
-
     public abstract Animation getDestroyAnimation();
 
     @Override
     public void draw(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g.create();
-        g2d.drawRect(movable.x, movable.y, movable.width, movable.height);
         animations.forEach(a -> a.paintComponent(g));
         List<Animation> toDelete = animations.stream().filter(Animation::getIsFinished).toList();
         animations.removeAll(toDelete);
-        weapon.drawReload(g, movable.x, movable.y + movable.height + 5);
+        weapon.drawReload(g, movable.x, movable.y + movable.height + 5, movable.width);
     }
 
     public double getStartHealth() {
@@ -64,7 +59,7 @@ public abstract class Ship extends JComponent implements IDrawable {
     }
 
     public double getHealth() {
-        return alive.health;
+        return Math.max(alive.health, 0);
     }
     protected abstract Animation getHitAnimation();
 
@@ -79,5 +74,9 @@ public abstract class Ship extends JComponent implements IDrawable {
 
     public boolean isPepsi() {
         return alive.health <= 0;
+    }
+
+    public double getCooldown() {
+        return weapon.getCooldown();
     }
 }

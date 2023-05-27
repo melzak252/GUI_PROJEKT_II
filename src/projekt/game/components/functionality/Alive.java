@@ -8,10 +8,6 @@ public class Alive {
         this.health = startHealth;
     }
 
-    public double getHealth() {
-        return health;
-    }
-
     public void getDamage(double damage) {
         this.health -= damage;
     }

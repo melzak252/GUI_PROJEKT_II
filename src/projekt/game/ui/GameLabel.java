@@ -10,4 +10,10 @@ public class GameLabel extends JLabel {
         setForeground(Color.cyan);
         setVerticalAlignment(SwingUtilities.TOP);
     }
+
+    public GameLabel(String text, int size) {
+        super(text);
+        setFont(new Font(Font.MONOSPACED, Font.BOLD, size));
+        setForeground(Color.cyan);
+    }
 }

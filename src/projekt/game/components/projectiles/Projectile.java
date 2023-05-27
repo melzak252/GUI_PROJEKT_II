@@ -34,7 +34,6 @@ public abstract class Projectile extends JComponent implements IDrawable {
     public void draw(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g.create();
-        g2d.drawRect(movable.x, movable.y, movable.width, movable.height);
         g2d.drawImage(projectileImage, movable.x, movable.y, movable.width, movable.height, this);
     }
 

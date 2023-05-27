@@ -15,10 +15,9 @@ public class TankEnemy extends Enemy {
     private static final String imagePath = "src/projekt/resources/ships/enemy-tank.png";
     private static final double minReload = 6.0;
     private static final double maxReload = 12.0;
-    private static final double moveSide = 1.33;
 
     public TankEnemy(int x, int y) {
-        super(x, y, width, height, speedX, speedY, tankHealth, imagePath, minReload, maxReload, moveSide);
+        super(x, y, width, height, speedX, speedY, tankHealth, imagePath, minReload, maxReload);
     }
 
     @Override

@@ -18,17 +18,13 @@ public abstract class Enemy extends Ship implements IDrawable {
     Long lastTimeMoveSide;
     Long lastTimeMoveDown;
     Long lastTimeHit;
-    double moveSideTime;
-    double moveDownTime = 5.0;
     Boolean goRight = true;
     boolean animatedDeath = false;
 
-    public Enemy(int x, int y, int width, int height, int speedX, int speedY, double health, String imagePath, double minReload, double maxReload, double moveSide) {
+    public Enemy(int x, int y, int width, int height, int speedX, int speedY, double health, String imagePath, double minReload, double maxReload) {
         super(x, y, width, height, speedX, speedY, health);
 
         setBlaster(minReload, maxReload);
-
-        moveSideTime = moveSide;
 
         lastTimeMoveSide = System.currentTimeMillis();
         lastTimeMoveDown = System.currentTimeMillis();
@@ -64,22 +60,9 @@ public abstract class Enemy extends Ship implements IDrawable {
         super.draw(g);
     }
 
-    public void move() {
-        MoveVector mv = new MoveVector();
-        if((System.currentTimeMillis() - lastTimeMoveSide) / 1000. >= moveSideTime){
-            mv.x = goRight? 1: -1;
-            goRight = !goRight;
-            lastTimeMoveSide = System.currentTimeMillis();
-        }
-
-        if((System.currentTimeMillis() - lastTimeMoveDown) / 1000. >= moveDownTime){
-            mv.y = 1;
-            lastTimeMoveDown = System.currentTimeMillis();
-        }
-
+    public void move(MoveVector mv) {
         movable.move(mv);
         animations.forEach(a -> a.move(mv));
-
     }
 
     @Override

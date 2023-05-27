@@ -1,68 +1,31 @@
 package projekt.game;
 
-import projekt.game.GameManager;
-import projekt.game.components.ships.Player;
-import projekt.game.levels.Level1;
-import projekt.game.ui.GameBackground;
-import projekt.game.ui.GameUI;
+import projekt.game.components.GameInstance;
+import projekt.game.components.ships.players.PlayerType;
+import projekt.game.levels.Level;
+import projekt.game.levels.LevelEasy;
 
 import javax.swing.*;
-import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GamePanel extends JPanel {
-    GameManager gameManager;
-    GameUI gameUI;
-    Timer timer;
-    int frames = 30;
-    public GamePanel() {
-        setLayout(new OverlayLayout(this));
-        init();
+    int noPlayers;
+    List<GameInstance> gameInstances = new ArrayList<>();
+    public GamePanel(int noPlayers) {
+        this.noPlayers = noPlayers;
     }
 
-    private void init() {
-        initGameManager();
-        initGameUI();
-
-        this.add(gameUI);
-        timer = new Timer(1000 / frames, (e -> {
-            gameManager.tick();
-            updateGameUI();
-            repaint();
-        }));
-//        timer.start();
-    }
-    private void initGameUI() {
-        gameUI = new GameUI(0.0);
-        JButton b = new JButton("Start game");
-        b.setFocusable(false);
-        b.addActionListener(a -> {
-            timer.start();
-            this.gameUI.remove(b);
-        });
-        gameUI.add(b);
+    public void initInstance(PlayerType pType, Level level, String playerName){
+        GameInstance newGameInstance = new GameInstance(level, pType, playerName, gameInstances.size() == 0);
+        add(newGameInstance);
+        gameInstances.add(newGameInstance);
+        this.addKeyListener(newGameInstance);
     }
 
-    private void initGameManager() {
-        gameManager = new GameManager(Level1.waves, Level1.randomStart);
-        addKeyListener(gameManager.getPlayer());
-        addKeyListener(gameManager);
-        add(gameManager);
+    public void startGame(){
+        gameInstances.forEach(GameInstance::start);
     }
 
-    private void updateGameUI() {
-        gameUI.setScore(gameManager.getScore());
-        gameUI.setHealth(gameManager.getPlayer().getHealth());
-        if(gameManager.isFinished()){
-            if(gameManager.isWin()) gameUI.gameWon();
-            else gameUI.gameLost();
-        }
-    }
 
-    @Override
-    public void paint(Graphics g) {
-        super.paint(g);
-        Graphics2D g2d = (Graphics2D) g.create();
-        gameManager.drawActors(g);
-        gameUI.paint(g);
-    }
 }

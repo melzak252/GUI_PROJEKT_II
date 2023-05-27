@@ -14,10 +14,9 @@ public class BaseEnemy extends Enemy {
     private static final String imagePath = "src/projekt/resources/ships/enemy-base.png";
     private static final double minReload = 2.0;
     private static final double maxReload = 10.0;
-    private static final double moveSide = 0.66;
 
     public BaseEnemy(int x, int y) {
-        super(x, y, width, height, speedX, speedY, baseHealth, imagePath, minReload, maxReload, moveSide);
+        super(x, y, width, height, speedX, speedY, baseHealth, imagePath, minReload, maxReload);
     }
 
     @Override

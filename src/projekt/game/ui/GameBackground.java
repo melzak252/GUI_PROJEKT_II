@@ -6,9 +6,11 @@ import java.awt.*;
 public class GameBackground extends JPanel {
     Image background;
     int current1Y;
-    int gameWidth = 400;
-    int gameHeight = 700;
+    int gameWidth;
+    int gameHeight;
     boolean stop = false;
+
+    Timer timer;
 
     public GameBackground(int gameWidth, int gameHeight) {
         this.gameHeight = gameHeight;
@@ -34,6 +36,10 @@ public class GameBackground extends JPanel {
 
     public void stop(){
         stop = true;
+    }
+
+    public void start(){
+        stop = false;
     }
 
 }

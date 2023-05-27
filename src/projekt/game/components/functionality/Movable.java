@@ -64,10 +64,12 @@ public class Movable {
         int dx = x - this.x;
         int dy = y - this.y;
         double l = Math.sqrt(dx * dx + dy * dy);
-        double aX = 1. * dx / speedX;
-        double aY = 1. * dy / speedY;
-        this.x += speedX * dx / l;
-        this.y += speedY * dy / l;
+        double sX = speedX / 2.;
+        double sY = speedY / 2.;
+        double aX = 1. * dx / sX;
+        double aY = 1. * dy / sY;
+        this.x += sX * dx / l;
+        this.y += sY * dy / l;
         if (aX <= 1.0) {
             this.x = x;
         }
